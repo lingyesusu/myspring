@@ -1,4 +1,4 @@
-package com.util;
+package com.tools;
 
 import java.net.InetAddress;
 import java.util.Calendar;
