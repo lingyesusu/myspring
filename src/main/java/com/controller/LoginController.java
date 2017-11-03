@@ -17,16 +17,6 @@ public class LoginController {
 	@Resource
 	private UserService userService;
 	
-	@RequestMapping("index")
-	public ModelAndView index(){
-		List<User> all = userService.getAll();
-		for (User user : all) {
-			System.out.println(user);
-		}
-		return new ModelAndView("index");
-		
-	}
-	
 	@RequestMapping("login")
 	public ModelAndView login(){
 		List<User> all = userService.getAll();

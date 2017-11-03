@@ -11,13 +11,13 @@
  http://www.springframework.org/schema/mvc 
  http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd "
  
- default-autowire="byName" default-lazy-init="true">
+ default-autowire="byName">
  
   <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
   <context:component-scan base-package="com.service" />
   <context:component-scan base-package="com.dao" />
   
-  <bean id="springUtils" class="com.util.SpringUtils"></bean>
+  <bean id="springUtils" class="com.util.SpringUtils" lazy-init="false"></bean>
   
   <import resource="spring-mybatis.xml"/>
  
