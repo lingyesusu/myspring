@@ -17,7 +17,7 @@
   <context:component-scan base-package="com.service" />
   <context:component-scan base-package="com.dao" />
   
-  <bean id="springUtils" class="com.util.SpringUtils"></bean>
+  <bean id="springUtils" class="com.tools.SpringUtils" lazy-init="false"></bean>
   
   <import resource="spring-mybatis.xml"/>
  

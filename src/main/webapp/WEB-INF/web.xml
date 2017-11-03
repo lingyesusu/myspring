@@ -39,8 +39,14 @@
     </filter-mapping> -->
 	
 	<!-- Spring监听器 -->
-	<listener>
+	<!-- <listener>
 	  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener> -->
+	<listener>
+		<listener-class>com.init.SpringContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.init.WebInitListener</listener-class>
 	</listener>
 	
 	<!-- 防止Spring内存溢出监听器 -->
@@ -94,9 +100,6 @@
 	    </init-param> 
 	</servlet>
 	
-	<listener>
-		<listener-class>com.init.WebInitListener</listener-class>
-	</listener>
 	
 	<welcome-file-list>
 	  <welcome-file>/index</welcome-file>
