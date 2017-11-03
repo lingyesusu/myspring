@@ -4,8 +4,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.service.AuthorityService;
-import com.util.PropertiesUtils;
-import com.util.SpringUtils;
+import com.tools.PropertiesUtils;
+import com.tools.SpringUtils;
 
 
 public class WebInitListener implements ServletContextListener {

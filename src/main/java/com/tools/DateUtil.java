@@ -1,4 +1,4 @@
-package com.util;
+package com.tools;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;

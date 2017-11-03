@@ -8,7 +8,7 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE This file creation date: Mar 29, 2003 /
  * 1:15:50 AM The JForum Project http://www.jforum.net
  */
-package com.util;
+package com.tools;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

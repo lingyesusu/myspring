@@ -19,7 +19,7 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.service.AuthorityService;
-import com.util.SpringContextUtils;
+import com.tools.SpringContextUtils;
 
 /**
  *
