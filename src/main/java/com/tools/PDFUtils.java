@@ -1,4 +1,4 @@
-package com.tools;
+/*package com.tools;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -37,7 +37,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
 
-/**
+*//**
  * <p>
  * 描述：oms工程中的Java类[PDFUtils]
  * </p>
@@ -45,7 +45,7 @@ import com.itextpdf.text.pdf.PdfWriter;
  * 类描述：PDF操作工具类
  * 
  * @version 1.0
- **/
+ **//*
 public class PDFUtils {
 
 	public static void main(String[] args) throws IOException {
@@ -74,14 +74,14 @@ public class PDFUtils {
 	}
 	
 	
-	/**
+	*//**
 	 * 创建PDF，单独创建PDF文件，做参考
 	 * 
 	 * @param outputStream
 	 * @param dto
 	 * @throws DocumentException
 	 * @throws IOException
-	 */
+	 *//*
 	public static void createPackPickPDF(OutputStream os, Pack pack)
 			throws DocumentException, IOException {
 		Document document = new Document(new Rectangle(283.465F, 283.465F),
@@ -240,14 +240,14 @@ public class PDFUtils {
 		os.close();
 	}
 	
-	/**
+	*//**
 	 * 创建总的拣货单PDF
 	 * 
 	 * @param outputStream
 	 * @param dto
 	 * @throws DocumentException
 	 * @throws IOException
-	 */
+	 *//*
 	public static void createTotalPackPickPDF(OutputStream os, List<Map<String, Object>> packPicks, String code)
 			throws DocumentException, IOException {
 		Document document = new Document(new Rectangle(283.465F, 283.465F),
@@ -351,14 +351,14 @@ public class PDFUtils {
 		os.close();
 	}
 
-	/**
+	*//**
 	 * 插入拣货信息
 	 * 
 	 * @param document
 	 * @param writer
 	 * @throws DocumentException
 	 * @throws IOException
-	 */
+	 *//*
 	public static void newPageExt(Document document, PdfWriter writer, Pack pack)
 			throws DocumentException, IOException {
 		if (!document.isOpen()) {
@@ -465,7 +465,7 @@ public class PDFUtils {
 		document.add(table2);
 	}
 
-	/**
+	*//**
 	 * PDF合并操作，实际应用
 	 * 
 	 * @param pdfIn
@@ -473,7 +473,7 @@ public class PDFUtils {
 	 * @param outputStream
 	 * @param paginate
 	 * @param pageType
-	 */
+	 *//*
 	public static void concatPDFs3(InputStream pdfIn, List<Pack> packs,
 			OutputStream outputStream, int pageType) {
 		Document document = null;
@@ -523,13 +523,13 @@ public class PDFUtils {
 		}
 	}
 
-	/**
+	*//**
 	 * PDF文件合并
 	 * 
 	 * @param streamOfPDFFiles
 	 * @param outputStream
 	 * @param paginate
-	 */
+	 *//*
 	public static void concatPDFs(List<InputStream> pdfs,
 			OutputStream outputStream, boolean paginate) {
 		Document document = null;
@@ -601,13 +601,13 @@ public class PDFUtils {
 		}
 	}
 
-	/**
+	*//**
 	 * PDF文件合并
 	 * 
 	 * @param streamOfPDFFiles
 	 * @param outputStream
 	 * @param paginate
-	 */
+	 *//*
 	public static void concatPDFs2(List<InputStream> streamOfPDFFiles,
 			OutputStream outputStream, boolean paginate) {
 
@@ -685,13 +685,13 @@ public class PDFUtils {
 		}
 	}
 
-	/**
+	*//**
 	 * 合并 ，做参考
 	 * 
 	 * @param files
 	 * @param newfile
 	 * @return
-	 */
+	 *//*
 	public static void mergePdfFiles(Object[] files, OutputStream os) {
 		Document document = null;
 		try {
@@ -715,3 +715,4 @@ public class PDFUtils {
 		}
 	}
 }
+*/
