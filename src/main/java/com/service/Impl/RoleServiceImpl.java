@@ -6,28 +6,28 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.dao.UserDao;
-import com.entity.User;
-import com.service.UserService;
+import com.dao.RoleDao;
+import com.entity.Role;
+import com.service.RoleService;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class RoleServiceImpl implements RoleService {
 	@Resource
-	private UserDao userDao;
+	private RoleDao roleDao;
 	
-	public List<User> getAll(){
-		return userDao.getAll();
+	public List<Role> getAll(){
+		return roleDao.getAll();
 		
 	}
 
 	@Override
-	public User getById(Integer id) {
+	public Role getById(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(User user) {
+	public void update(Role role) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void add(User user) {
+	public void add(Role role) {
 		// TODO Auto-generated method stub
 		
 	}

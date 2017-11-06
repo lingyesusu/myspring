@@ -6,28 +6,28 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.dao.UserDao;
-import com.entity.User;
-import com.service.UserService;
+import com.dao.PermissionDao;
+import com.entity.Permission;
+import com.service.PermissionService;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class PermissionServiceImpl implements PermissionService {
 	@Resource
-	private UserDao userDao;
-	
-	public List<User> getAll(){
-		return userDao.getAll();
-		
+	private PermissionDao permissionDao;
+
+	@Override
+	public List<Permission> getAll() {
+		return permissionDao.getAll();
 	}
 
 	@Override
-	public User getById(Integer id) {
+	public Permission getById(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(User user) {
+	public void update(Permission permission) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void add(User user) {
+	public void add(Permission permission) {
 		// TODO Auto-generated method stub
 		
 	}

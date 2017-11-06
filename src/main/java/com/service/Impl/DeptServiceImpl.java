@@ -6,28 +6,28 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.dao.UserDao;
-import com.entity.User;
-import com.service.UserService;
+import com.dao.DeptDao;
+import com.entity.Dept;
+import com.service.DeptService;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class DeptServiceImpl implements DeptService {
 	@Resource
-	private UserDao userDao;
+	private DeptDao deptDao;
 	
-	public List<User> getAll(){
-		return userDao.getAll();
+	public List<Dept> getAll(){
+		return deptDao.getAll();
 		
 	}
 
 	@Override
-	public User getById(Integer id) {
+	public Dept getById(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(User user) {
+	public void update(Dept dept) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void add(User user) {
+	public void add(Dept dept) {
 		// TODO Auto-generated method stub
 		
 	}
