@@ -38,5 +38,11 @@ public class Permission {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	@Override
+	public String toString() {
+		return "Permission [id=" + id + ", code=" + code + ", name=" + name
+				+ ", url=" + url + ", description=" + description + "]";
+	}
 
 }

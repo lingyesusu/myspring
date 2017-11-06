@@ -6,20 +6,20 @@
 		select * from user
 	</select>
 	
-	<insert id="add">
-		insert into user(username,password,deptId,roleId,age,name,status) values (#{username},#{password},#{deptId},#{roleId},#{age},#{name},#{status});
+	<insert id="add" parameterType="com.entity.User">
+		insert into user(id,username,password,dept_id,role_id,age,name,status) values (#{id},#{username},#{password},#{dept_id},#{role_id},#{age},#{name},#{status});
 	</insert>
 	
-	<select id="getById">
-		select username,password,deptId,roleId,age,name,status from user where id=#{id}
+	<select id="getById" parameterType="Integer" resultType="com.entity.User">
+		select id,username,password,dept_id,role_id,age,name,status from user where id=#{id}
 	</select>
 	
-	<delete id="delById">
-		delete username,password,deptId,roleId,age,name,status from user where id=#{id}
+	<delete id="delById" parameterType="Integer">
+		delete username,password,dept_id,role_id,age,name,status from user where id=#{id}
 	</delete>
 	
-	<update id="updateById">
-		update user set username,password,deptId,roleId,age,name,status where id=#{id}
+	<update id="updateById" parameterType="com.entity.User">
+		update user set username=#{username},password=#{password},dept_id=#{dept_id},role_id=#{role_id},age=#{age},name=#{name},status=#{status} where id=#{id}
 	</update>
 
 </mapper>

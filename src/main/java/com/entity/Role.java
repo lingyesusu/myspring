@@ -31,5 +31,11 @@ public class Role {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", code=" + code + ", name=" + name
+				+ ", description=" + description + "]";
+	}
 
 }

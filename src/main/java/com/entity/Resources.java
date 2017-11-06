@@ -52,5 +52,12 @@ public class Resources {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	
+	@Override
+	public String toString() {
+		return "Resources [id=" + id + ", name=" + name + ", url=" + url
+				+ ", level=" + level + ", parent_id=" + parent_id + ", sort="
+				+ sort + ", status=" + status + "]";
+	}
 
 }

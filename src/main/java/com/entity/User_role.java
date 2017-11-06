@@ -24,5 +24,11 @@ public class User_role {
 	public void setRole_id(Integer role_id) {
 		this.role_id = role_id;
 	}
+	
+	@Override
+	public String toString() {
+		return "User_role [id=" + id + ", user_id=" + user_id + ", role_id="
+				+ role_id + "]";
+	}
 
 }

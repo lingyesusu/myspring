@@ -24,5 +24,11 @@ public class Dept {
 	public void setParent_id(Integer parent_id) {
 		this.parent_id = parent_id;
 	}
+	
+	@Override
+	public String toString() {
+		return "Dept [id=" + id + ", department=" + department + ", parent_id="
+				+ parent_id + "]";
+	}
 
 }
