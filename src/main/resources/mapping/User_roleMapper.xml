@@ -11,11 +11,11 @@
 	</insert>
 	
 	<select id="getById">
-		select user_id,role_id from user_role where id=#{id}
+		select id,user_id,role_id from user_role where id=#{id}
 	</select>
 	
 	<delete id="delById">
-		delete user_id,role_id from user_role where id=#{id}
+		delete from user_role where id=#{id}
 	</delete>
 	
 	<update id="updateById">

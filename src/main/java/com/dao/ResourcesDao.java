@@ -11,8 +11,8 @@ public interface ResourcesDao {
 	
 	public List<Resources> getAll();
 	public Resources getById(Integer id);
-	public void update(Resources resources);
-	public void del(Integer id);
+	public void updateById(Resources resources);
+	public void delById(Integer id);
 	public void add(Resources resources);
 
 }

@@ -38,6 +38,7 @@ public class RunTest {
 	
 	@Test
 	public void index(){
+		userService.del(1);
 		User user=new User();
 		user.setAge(1);
 		user.setDept_id(1);

@@ -11,11 +11,11 @@
 	</insert>
 	
 	<select id="getById">
-		select department,parent_id from dept where id=#{id}
+		select id,department,parent_id from dept where id=#{id}
 	</select>
 	
 	<delete id="delById">
-		delete department,parent_id from dept where id=#{id}
+		delete from dept where id=#{id}
 	</delete>
 	
 	<update id="updateById">

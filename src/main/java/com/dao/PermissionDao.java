@@ -11,8 +11,8 @@ public interface PermissionDao {
 	
 	public List<Permission> getAll();
 	public Permission getById(Integer id);
-	public void update(Permission permission);
-	public void del(Integer id);
+	public void updateById(Permission permission);
+	public void delById(Integer id);
 	public void add(Permission permission);
 
 }

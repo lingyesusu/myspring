@@ -11,11 +11,11 @@
 	</insert>
 	
 	<select id="getById">
-		select name,url,level,parent_id,sort,status from resources where id=#{id}
+		select id,name,url,level,parent_id,sort,status from resources where id=#{id}
 	</select>
 	
 	<delete id="delById">
-		delete name,url,level,parent_id,sort,status from resources where id=#{id}
+		delete from resources where id=#{id}
 	</delete>
 	
 	<update id="updateById">

@@ -11,11 +11,11 @@
 	</insert>
 	
 	<select id="getById">
-		select code,name,url,description from permission where id=#{id}
+		select id,code,name,url,description from permission where id=#{id}
 	</select>
 	
 	<delete id="delById">
-		delete code,name,url,description from permission where id=#{id}
+		delete from permission where id=#{id}
 	</delete>
 	
 	<update id="updateById">

@@ -15,7 +15,7 @@
 	</select>
 	
 	<delete id="delById" parameterType="Integer">
-		delete username,password,dept_id,role_id,age,name,status from user where id=#{id}
+		delete from user where id=#{id}
 	</delete>
 	
 	<update id="updateById" parameterType="com.entity.User">

@@ -11,11 +11,11 @@
 	</insert>
 	
 	<select id="getById">
-		select role_id,permission_id from role_permission where id=#{id}
+		select id,role_id,permission_id from role_permission where id=#{id}
 	</select>
 	
 	<delete id="delById">
-		delete role_id,permission_id from role_permission where id=#{id}
+		delete from role_permission where id=#{id}
 	</delete>
 	
 	<update id="updateById">
