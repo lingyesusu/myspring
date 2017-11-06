@@ -6,19 +6,19 @@
 		select * from role_permission
 	</select>
 	
-	<insert id="add">
+	<insert id="add" parameterType="com.entity.Role_permission">
 		insert into role_permission(role_id,permission_id) values (#{role_id},#{permission_id});
 	</insert>
 	
-	<select id="getById">
+	<select id="getById" parameterType="Integer" resultType="com.entity.Role_permission">
 		select id,role_id,permission_id from role_permission where id=#{id}
 	</select>
 	
-	<delete id="delById">
+	<delete id="delById" parameterType="Integer">
 		delete from role_permission where id=#{id}
 	</delete>
 	
-	<update id="updateById">
+	<update id="updateById" parameterType="com.entity.Role_permission">
 		update role_permission set role_id=#{role_id},permission_id=#{permission_id} where id=#{id}
 	</update>
 

@@ -6,19 +6,19 @@
 		select * from user_role
 	</select>
 	
-	<insert id="add">
+	<insert id="add" parameterType="com.entity.User_role">
 		insert into user_role(user_id,role_id) values (#{user_id},#{role_id});
 	</insert>
 	
-	<select id="getById">
+	<select id="getById" parameterType="Integer" resultType="com.entity.User_role">
 		select id,user_id,role_id from user_role where id=#{id}
 	</select>
 	
-	<delete id="delById">
+	<delete id="delById" parameterType="Integer">
 		delete from user_role where id=#{id}
 	</delete>
 	
-	<update id="updateById">
+	<update id="updateById" parameterType="com.entity.User">
 		update user_role set user_id=#{user_id},role_id=#{role_id} where id=#{id}
 	</update>
 

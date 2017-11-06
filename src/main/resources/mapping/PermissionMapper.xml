@@ -6,19 +6,19 @@
 		select * from permission
 	</select>
 	
-	<insert id="add">
+	<insert id="add" parameterType="com.entity.Permission">
 		insert into permission(code,name,url,description) values (#{code},#{name},#{url},#{description});
 	</insert>
 	
-	<select id="getById">
+	<select id="getById" parameterType="Integer" resultType="com.entity.Permission">
 		select id,code,name,url,description from permission where id=#{id}
 	</select>
 	
-	<delete id="delById">
+	<delete id="delById" parameterType="Integer">
 		delete from permission where id=#{id}
 	</delete>
 	
-	<update id="updateById">
+	<update id="updateById" parameterType="com.entity.Permission">
 		update permission set code=#{code},name=#{name},url=#{url},description=#{desciption} where id=#{id}
 	</update>
 

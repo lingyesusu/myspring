@@ -6,19 +6,19 @@
 		select * from dept
 	</select>
 	
-	<insert id="add">
+	<insert id="add" parameterType="com.entity.Dept">
 		insert into dept(department,parent_id) values (#{department},#{parent_id});
 	</insert>
 	
-	<select id="getById">
+	<select id="getById" parameterType="Integer" resultType="com.entity.Dept">
 		select id,department,parent_id from dept where id=#{id}
 	</select>
 	
-	<delete id="delById">
+	<delete id="delById" parameterType="Integer">
 		delete from dept where id=#{id}
 	</delete>
 	
-	<update id="updateById">
+	<update id="updateById" parameterType="com.entity.Dept">
 		update dept set department=#{department},parent_id=#{parent_id} where id=#{id}
 	</update>
 

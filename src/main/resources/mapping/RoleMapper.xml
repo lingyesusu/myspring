@@ -6,19 +6,19 @@
 		select * from role
 	</select>
 	
-	<insert id="add">
+	<insert id="add" parameterType="com.entity.Role">
 		insert into role(code,name,description) values (#{code},#{name},#{description});
 	</insert>
 	
-	<select id="getById">
+	<select id="getById" parameterType="Integer" resultType="com.entity.Role">
 		select id,code,name,description from role where id=#{id}
 	</select>
 	
-	<delete id="delById">
+	<delete id="delById" parameterType="Integer">
 		delete from role where id=#{id}
 	</delete>
 	
-	<update id="updateById">
+	<update id="updateById" parameterType="com.entity.Role">
 		update role set code=#{code},name=#{name},description=#{description} where id=#{id}
 	</update>
 

@@ -40,6 +40,12 @@
     <property name="dataSource" ref="dataSource" />
     <!-- 自动扫描mapping.xml文件 -->
     <property name="mapperLocations" value="classpath:mapping/*.xml"></property>
+    
+    <!-- <property name="typeAliases">可以省略配别名
+    	<array>
+        	<value>com.tiantian.mybatis.model.Blog</value>
+    	</array>
+    </property> -->
   </bean>
  
   <!-- DAO接口所在包名，Spring会自动查找其下的类 -->

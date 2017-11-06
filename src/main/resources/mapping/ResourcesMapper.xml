@@ -6,19 +6,19 @@
 		select * from resources
 	</select>
 	
-	<insert id="add">
+	<insert id="add" parameterType="com.entity.Resources">
 		insert into resources(name,url,level,parent_id,sort,status) values (#{name},#{url},#{level},#{parent_id},#{sort},#{status});
 	</insert>
 	
-	<select id="getById">
+	<select id="getById" parameterType="Integer" resultType="com.entity.Resources">
 		select id,name,url,level,parent_id,sort,status from resources where id=#{id}
 	</select>
 	
-	<delete id="delById">
+	<delete id="delById" parameterType="Integer">
 		delete from resources where id=#{id}
 	</delete>
 	
-	<update id="updateById">
+	<update id="updateById" parameterType="com.entity.Resources">
 		update resources set name=#{id},url=#{id},level=#{id},parent_id=#{id},sort=#{id},status=#{id} where id=#{id}
 	</update>
 
