@@ -4,11 +4,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.authority.AuthorityContant;
+import com.authority.RequiresMenu;
 import com.entity.Dept;
 import com.entity.User;
 import com.service.DeptService;
@@ -36,13 +39,17 @@ public class IndexController {
 	@Resource
 	private User_roleService user_roleService;
 	
-	@RequestMapping("index")
+	@RequiresMenu(value="/index", type=AuthorityContant.QUERY)
+	@RequiresPermissions(value="index:query")
+	@RequestMapping("/index")
 	public ModelAndView index(){
 		return new ModelAndView("index");
 	}
 	
+	@RequiresMenu(value="/user", type=AuthorityContant.QUERY)
+	@RequiresPermissions(value="index:query")
 	@ResponseBody
-	@RequestMapping("user")
+	@RequestMapping("/user")
 	public Object user(){
 		User user=new User();
 		user.setAge(1);
@@ -64,9 +71,11 @@ public class IndexController {
 		return null;
 	}
 	
+	@RequiresMenu(value="/dept", type=AuthorityContant.QUERY)
+	@RequiresPermissions(value="index:query")
 	@ResponseBody
-	@RequestMapping("dept")
-	public ModelAndView dept(){
+	@RequestMapping("/dept")
+	public Object dept(){
 		Dept dept=new Dept();
 		dept.setDepartment("1");
 		dept.setId(1);

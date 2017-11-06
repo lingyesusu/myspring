@@ -1,7 +1,5 @@
 package com.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -17,27 +15,20 @@ public class LoginController {
 	@Resource
 	private UserService userService;
 	
-	@RequestMapping("login")
+	@RequestMapping("/login")
 	public ModelAndView login(){
-		List<User> all = userService.getAll();
-		for (User user : all) {
-			System.out.println(user);
-		}
 		return new ModelAndView("login");
-		
 	}
 	
-	@RequestMapping("inLogin")
+	@RequestMapping("/inLogin")
 	@ResponseBody
 	public Object inLogin(User user){
-		System.out.println(user.toString());
-		return "";
+		return userService.login(user);
 	}
 	
-	@RequestMapping("register")
+	@RequestMapping("/register")
 	public ModelAndView register(){
 		return new ModelAndView("register");
-		
 	}
 
 }

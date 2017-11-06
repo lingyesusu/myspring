@@ -11,5 +11,6 @@ public interface UserService {
 	public void update(User user);
 	public void del(Integer id);
 	public void add(User user);
+	public Object login(User user);
 
 }

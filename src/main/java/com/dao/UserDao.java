@@ -14,5 +14,6 @@ public interface UserDao {
 	public void updateById(User user);
 	public void delById(Integer id);
 	public void add(User user);
+	public User login(String name, String password);
 
 }

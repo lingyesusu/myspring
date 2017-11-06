@@ -44,4 +44,13 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public Object login(User user) {
+		User getUser = userDao.login(user.getName(),user.getPassword());
+		if(null!=getUser){
+			return new CodeResult();
+		}
+		return null;
+	}
+
 }
