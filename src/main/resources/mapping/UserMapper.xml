@@ -7,28 +7,19 @@
 	</select>
 	
 	<insert id="add">
-		insert into user(username,password,deptId,roleId,age) values (#{username},#{password},#{deptId},#{roleId},#{age});
+		insert into user(username,password,deptId,roleId,age,name,status) values (#{username},#{password},#{deptId},#{roleId},#{age},#{name},#{status});
 	</insert>
 	
 	<select id="getById">
-		select username,password,deptId,roleId,age from user 
-		<where>
-			id=#{id}
-		</where>
+		select username,password,deptId,roleId,age,name,status from user where id=#{id}
 	</select>
 	
 	<delete id="delById">
-		delete username,password,deptId,roleId,age from user 
-		<where>
-			id=#{id}
-		</where>
+		delete username,password,deptId,roleId,age,name,status from user where id=#{id}
 	</delete>
 	
 	<update id="updateById">
-		update username,password,deptId,roleId,age from user 
-		<where>
-			id=#{id}
-		</where>
+		update user set username,password,deptId,roleId,age,name,status where id=#{id}
 	</update>
 
 </mapper>

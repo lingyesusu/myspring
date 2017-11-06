@@ -3,32 +3,23 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="com.dao.RoleDao"><!-- 映射到哪个接口 -->
 	<select id="getAll" resultType="com.entity.Role">
-		select * from user
+		select * from role
 	</select>
 	
 	<insert id="add">
-		insert into user(username,password,deptId,roleId,age) values (#{username},#{password},#{deptId},#{roleId},#{age});
+		insert into role(code,name,description) values (#{code},#{name},#{description});
 	</insert>
 	
 	<select id="getById">
-		select username,password,deptId,roleId,age from user 
-		<where>
-			id=#{id}
-		</where>
+		select code,name,description from role where id=#{id}
 	</select>
 	
 	<delete id="delById">
-		delete username,password,deptId,roleId,age from user 
-		<where>
-			id=#{id}
-		</where>
+		delete code,name,description from role where id=#{id}
 	</delete>
 	
 	<update id="updateById">
-		update username,password,deptId,roleId,age from user 
-		<where>
-			id=#{id}
-		</where>
+		update role set code=#{code},name=#{name},description=#{description} where id=#{id}
 	</update>
 
 </mapper>

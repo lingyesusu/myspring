@@ -3,32 +3,23 @@
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="com.dao.Role_permissionDao"><!-- 映射到哪个接口 -->
 	<select id="getAll" resultType="com.entity.Role_permission">
-		select * from user
+		select * from role_permission
 	</select>
 	
 	<insert id="add">
-		insert into user(username,password,deptId,roleId,age) values (#{username},#{password},#{deptId},#{roleId},#{age});
+		insert into role_permission(role_id,permission_id) values (#{role_id},#{permission_id});
 	</insert>
 	
 	<select id="getById">
-		select username,password,deptId,roleId,age from user 
-		<where>
-			id=#{id}
-		</where>
+		select role_id,permission_id from role_permission where id=#{id}
 	</select>
 	
 	<delete id="delById">
-		delete username,password,deptId,roleId,age from user 
-		<where>
-			id=#{id}
-		</where>
+		delete role_id,permission_id from role_permission where id=#{id}
 	</delete>
 	
 	<update id="updateById">
-		update username,password,deptId,roleId,age from user 
-		<where>
-			id=#{id}
-		</where>
+		update role_permission set role_id=#{role_id},permission_id=#{permission_id} where id=#{id}
 	</update>
 
 </mapper>
