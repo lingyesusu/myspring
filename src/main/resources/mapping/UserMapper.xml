@@ -22,6 +22,33 @@
 		update user set username=#{username},password=#{password},dept_id=#{dept_id},role_id=#{role_id},age=#{age},name=#{name},status=#{status} where id=#{id}
 	</update>
 	
+	<sql id="">
+			SELECT
+				*
+			FROM
+				user_role ur
+			LEFT JOIN role r ON r.id = ur.role_id
+			LEFT JOIN role_permission rp ON rp.role_id = r.id
+			LEFT JOIN permission p on p.id=rp.permission_id
+			WHERE
+				ur.user_id = 1;
+	</sql>
+	
+	<resultMap type="com.entity.User" id="User">
+		<result column="username" property="username"/>
+		<result column="password" property=""/>
+		<result column="" property=""/>
+		<result column="" property=""/>
+		<collection property="" javaType="">
+			<result column="" property=""/>
+			<result column="" property=""/>
+			<collection property="" javaType="">
+				<result column="" property=""/>
+				<result column="" property=""/>
+			</collection>
+		</collection>
+	</resultMap>
+	
 	<!-- <resultMap id="detailedBlogResultMap" type="Blog">
 		<constructor>
 			<idArg column="blog_id" javaType="int"/>

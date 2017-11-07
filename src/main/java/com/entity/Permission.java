@@ -1,5 +1,7 @@
 package com.entity;
 
+import java.util.Set;
+
 public class Permission {
 	
 	private Integer id;
@@ -7,6 +9,7 @@ public class Permission {
 	private String name;
 	private String url;
 	private String description;
+	private Set<Resources> resources;
 	
 	public Integer getId() {
 		return id;
@@ -43,6 +46,12 @@ public class Permission {
 	public String toString() {
 		return "Permission [id=" + id + ", code=" + code + ", name=" + name
 				+ ", url=" + url + ", description=" + description + "]";
+	}
+	public Set<Resources> getResources() {
+		return resources;
+	}
+	public void setResources(Set<Resources> resources) {
+		this.resources = resources;
 	}
 
 }
