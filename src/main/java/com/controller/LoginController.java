@@ -23,7 +23,7 @@ public class LoginController {
 	@RequestMapping("/inLogin")
 	@ResponseBody
 	public Object inLogin(User user){
-		return userService.login(user);
+		return null;
 	}
 	
 	@RequestMapping("/register")

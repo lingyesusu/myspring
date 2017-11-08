@@ -1,11 +1,13 @@
 package com.service.Impl;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.common.CodeResult;
 import com.dao.UserDao;
 import com.entity.User;
 import com.service.UserService;
@@ -45,11 +47,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Object login(User user) {
-		User getUser = userDao.login(user.getName(),user.getPassword());
+	public Object login(String username) {
+		User getUser = userDao.login(username);
 		if(null!=getUser){
 			return new CodeResult();
 		}
+		return null;
+	}
+
+	@Override
+	public Set<String> getRolesByName(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<String> getPermissionsByName(String username) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

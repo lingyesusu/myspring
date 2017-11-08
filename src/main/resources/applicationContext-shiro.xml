@@ -23,13 +23,16 @@
 			</value>
 		</property>
 	</bean>
+	
 	<!-- 配置securityManager -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<!-- 单realm应用。如果有多个realm，使用‘realms’属性代替 -->
 		<property name="realm" ref="sampleRealm" />
 		<property name="cacheManager" ref="cacheManager" />  <!-- 缓存配置，集群环境慎用 -->
 	</bean>
+	
 	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager" />
+	
 	<!-- 一个简单的jdbcRealm -->
 	<bean id="sampleRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
 		<property name="dataSource" ref="dataSource" />
@@ -50,6 +53,7 @@
 		<property name="credentialsMatcher" ref="hashedCredentialsMatcher" />
 		<!-- credentialsMatcher密码匹配规则 -->
 	</bean>
+	
 	<bean id="hashedCredentialsMatcher"
 		class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
 		<property name="hashAlgorithmName" value="MD5" />
@@ -59,4 +63,5 @@
 		<property name="hashIterations" value="1" />
 		<!-- hashIterations迭代次数，默认值是1。 -->
 	</bean>
+	
 </beans>
