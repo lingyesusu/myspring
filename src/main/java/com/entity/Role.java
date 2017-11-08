@@ -1,11 +1,14 @@
 package com.entity;
 
+import java.util.Set;
+
 public class Role {
 	
 	private Integer id;
 	private String code;
 	private String name;
 	private String description;
+	private Set<Permission> permissions;
 	
 	public Integer getId() {
 		return id;
@@ -37,5 +40,13 @@ public class Role {
 		return "Role [id=" + id + ", code=" + code + ", name=" + name
 				+ ", description=" + description + "]";
 	}
+	public Set<Permission> getPermissions() {
+		return permissions;
+	}
+	public void setPermissions(Set<Permission> permissions) {
+		this.permissions = permissions;
+	}
+	
+	
 
 }
