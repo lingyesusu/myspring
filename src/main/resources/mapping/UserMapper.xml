@@ -7,11 +7,11 @@
 	</select>
 	
 	<insert id="add" parameterType="com.entity.User">
-		insert into user(id,username,password,dept_id,role_id,age,name,status) values (#{id},#{username},#{password},#{dept_id},#{role_id},#{age},#{name},#{status});
+		insert into user(id,username,password,dept_id,age,name,status) values (#{id},#{username},#{password},#{dept_id},#{age},#{name},#{status});
 	</insert>
 	
 	<select id="getById" parameterType="Integer" resultType="com.entity.User">
-		select id,username,password,dept_id,role_id,age,name,status from user where id=#{id}
+		select id,username,password,dept_id,age,name,status from user where id=#{id}
 	</select>
 	
 	<delete id="delById" parameterType="Integer">
@@ -19,7 +19,7 @@
 	</delete>
 	
 	<update id="updateById" parameterType="com.entity.User">
-		update user set username=#{username},password=#{password},dept_id=#{dept_id},role_id=#{role_id},age=#{age},name=#{name},status=#{status} where id=#{id}
+		update user set username=#{username},password=#{password},dept_id=#{dept_id},age=#{age},name=#{name},status=#{status} where id=#{id}
 	</update>
 	
 	<!-- <resultMap id="detailedBlogResultMap" type="Blog">

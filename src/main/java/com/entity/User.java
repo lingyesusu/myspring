@@ -5,7 +5,6 @@ public class User {
 	private String username;
 	private String password;
 	private Integer dept_id;
-	private Integer role_id;
 	private Integer age;
 	private Integer id;
 	private String name;
@@ -27,12 +26,6 @@ public class User {
 	}
 	public void setDept_id(Integer dept_id) {
 		this.dept_id = dept_id;
-	}
-	public Integer getRole_id() {
-		return role_id;
-	}
-	public void setRole_id(Integer role_id) {
-		this.role_id = role_id;
 	}
 	public Integer getAge() {
 		return age;
@@ -62,7 +55,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password
-				+ ", dept_id=" + dept_id + ", role_id=" + role_id + ", age="
+				+ ", dept_id=" + dept_id + ", age="
 				+ age + ", id=" + id + ", name=" + name + ", status=" + status
 				+ "]";
 	}
