@@ -22,7 +22,7 @@
 		update user set username=#{username},password=#{password},dept_id=#{dept_id},age=#{age},name=#{name},status=#{status} where id=#{id}
 	</update>
 	
-	<sql id="">
+	<!-- <sql id="">
 			SELECT
 				*
 			FROM
@@ -47,7 +47,7 @@
 				<result column="" property=""/>
 			</collection>
 		</collection>
-	</resultMap>
+	</resultMap> -->
 	
 	<!-- <resultMap id="detailedBlogResultMap" type="Blog">
 		<constructor>

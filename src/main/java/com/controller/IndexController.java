@@ -56,7 +56,7 @@ public class IndexController {
 		user.setDept_id(1);
 		user.setName("1");
 		user.setPassword("1");
-		user.setRole_id(1);
+//		user.setRole_id(1);
 		user.setStatus(1);
 		user.setUsername("1");
 		userService.add(user);
