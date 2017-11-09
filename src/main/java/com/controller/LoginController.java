@@ -9,6 +9,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,9 +27,10 @@ public class LoginController {
 		return new ModelAndView("login");
 	}
 	
-	@RequestMapping("/inLogin")
+	@RequestMapping(value="/inLogin" ,method=RequestMethod.POST)
 	@ResponseBody
 	public Object inLogin(User user){
+		System.err.println();
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         token.setRememberMe(true);
         System.out.print("为验证登录用户而封装的Token：");

@@ -2,6 +2,8 @@ package com.shiro;
 
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -18,6 +20,7 @@ import com.service.UserService;
 
 public class UserRealm extends AuthorizingRealm {
 
+	@Resource
     private UserService userService;
 
     public void setUserService(UserService userService) {
