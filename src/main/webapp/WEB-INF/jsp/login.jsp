@@ -84,13 +84,13 @@
 			            });
 			            return false;
 			        }
-			        var pswd = MD5(username +"#" + password),
-			        	data = {pswd:pswd,email:username,rememberMe:$("#rememberMe").is(':checked')};
+			        /*var pswd = MD5(username +"#" + password),
+			        	data = {pswd:pswd,email:username,rememberMe:$("#rememberMe").is(':checked')}; */
 			        var load = layer.load();
 			        
 			        $.ajax({
 			        	url:"${contextPath}/inLogin",
-			        	data:data,
+			        	data:{password:password,username:username,rememberMe:$("#rememberMe").is(':checked')},
 			        	type:"post",
 			        	dataType:"json",
 			        	beforeSend:function(){
@@ -98,17 +98,17 @@
 			        	},
 			        	success:function(result){
 				        	layer.close(load);
-				    		if(result && result.status != 200){
+				    		/* if(result && result.status != 200){
 				    			layer.msg(result.message,function(){});
 				    			$('.password').val('');
 				    			return;
-				    		}else{
+				    		}else{ */
 				    			layer.msg('登录成功！');
 				    			setTimeout(function(){
 				    				//登录返回
 					    			window.location.href= result.back_url || "${contextPath}/index";
 				    			},1000)
-				    		}
+				    		/* } */
 			        	},
 			        	error:function(e){
 			        		console.log(e,e.message);

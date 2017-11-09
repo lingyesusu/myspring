@@ -1,5 +1,6 @@
 package com.service.Impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -7,7 +8,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.common.CodeResult;
 import com.dao.UserDao;
 import com.entity.User;
 import com.service.UserService;
@@ -48,23 +48,51 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Object login(String username) {
-		User getUser = userDao.login(username);
-		if(null!=getUser){
-			return new CodeResult();
+		User user = null;
+		if(username.equals("user")){
+			user = new User();
+			user.setUsername("user");
+			user.setPassword("123456");
+			user.setAge(1);
+			user.setDept_id(1);
+			user.setName("user");
+			user.setStatus(1);
+		}else{
+			user = new User();
+			user.setUsername("admin");
+			user.setPassword("123456");
+			user.setAge(10);
+			user.setDept_id(2);
+			user.setName("admin");
+			user.setStatus(1);
 		}
-		return null;
+		return user;
 	}
 
 	@Override
 	public Set<String> getRolesByName(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<String> roles=new HashSet<String>();
+		if(username.equals("user")){
+			roles.add("user");
+			roles.add("by");
+		}else{
+			roles.add("admin");
+			roles.add("by");
+		}
+		return roles;
 	}
 
 	@Override
 	public Set<String> getPermissionsByName(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<String> permissions=new HashSet<String>();
+		if(username.equals("user")){
+			permissions.add("indexpermission");
+			permissions.add("userpermission");
+		}else{
+			permissions.add("indexpermission");
+			permissions.add("adminpermission");
+		}
+		return permissions;
 	}
 
 }

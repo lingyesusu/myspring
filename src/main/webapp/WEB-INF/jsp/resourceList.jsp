@@ -1,9 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@include file="common/taglibs.jsp" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -24,25 +24,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     Hello,${user.username}<br>
-    <ul>
-	    <shiro:hasRole name="user">
-    		<li>user</li>
-		</shiro:hasRole>
-		<shiro:hasRole name="admin">
-    		<li>admin</li>
-		</shiro:hasRole>
-		<shiro:hasRole name="by">
-    		<li>by</li>
-		</shiro:hasRole>
-    	<shiro:hasPermission name="indexpermission">
-	    	<li>indexpermission</li>
-		</shiro:hasPermission>
-    	<shiro:hasPermission name="userpermission">
-	    	<li>userpermission</li>
-		</shiro:hasPermission>
-    	<shiro:hasPermission name="adminpermission">
-	    	<li>adminpermission</li>
-		</shiro:hasPermission>
-    </ul>
   </body>
 </html>
