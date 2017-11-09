@@ -14,6 +14,7 @@
 				/logout = logout
 				/role/** = roles[admin]
 				/permission/** = perms[permssion:look]
+                /resources/** =anon
 				/** = authc
 			</value>
 		</property>
