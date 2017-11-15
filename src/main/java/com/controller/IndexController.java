@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,7 +45,11 @@ public class IndexController {
 	@RequiresPermissions(value="index:query")
 	@RequestMapping("/index")
 	public ModelAndView index(){
-		return new ModelAndView("index");
+		Subject subject = SecurityUtils.getSubject();
+		ModelAndView modelAndView = new ModelAndView("index");
+		Object principal = subject.getPrincipal();
+		modelAndView.addObject("user", principal);
+		return modelAndView;
 	}
 	
 	@RequiresMenu(value="/user", type=AuthorityContant.QUERY)
