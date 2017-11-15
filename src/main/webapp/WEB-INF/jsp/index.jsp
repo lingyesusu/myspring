@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    Hello,${user.username}<br>
+    Hello,${user}<br>
     <ul>
 	    <shiro:hasRole name="user">
     		<li>user</li>
