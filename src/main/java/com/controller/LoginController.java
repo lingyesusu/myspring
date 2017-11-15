@@ -48,5 +48,19 @@ public class LoginController {
 	public ModelAndView register(){
 		return new ModelAndView("register");
 	}
+	
+	@RequestMapping(value="/logout" ,method=RequestMethod.GET)
+	@ResponseBody
+	public Object logout(){
+        //获取当前的Subject
+        Subject currentUser = SecurityUtils.getSubject();
+        currentUser.logout();
+		return new CodeResult<>();
+	}
+	
+	@RequestMapping(value="/login/unauthorized" ,method={RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView unauthorized(){
+		return new ModelAndView("unauthorized");
+	}
 
 }
