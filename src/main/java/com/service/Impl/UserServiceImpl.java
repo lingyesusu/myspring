@@ -74,10 +74,10 @@ public class UserServiceImpl implements UserService {
 		Set<String> roles=new HashSet<String>();
 		if(username.equals("user")){
 			roles.add("user");
-			roles.add("by");
+			roles.add("throw");
 		}else{
 			roles.add("admin");
-			roles.add("by");
+			roles.add("throw");
 		}
 		return roles;
 	}
@@ -86,10 +86,10 @@ public class UserServiceImpl implements UserService {
 	public Set<String> getPermissionsByName(String username) {
 		Set<String> permissions=new HashSet<String>();
 		if(username.equals("user")){
-			permissions.add("indexpermission");
+			permissions.add("throwpermission");
 			permissions.add("userpermission");
 		}else{
-			permissions.add("indexpermission");
+			permissions.add("throwpermission");
 			permissions.add("adminpermission");
 		}
 		return permissions;

@@ -5,14 +5,13 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login" />
-		<property name="successUrl" value="/login/loginSuccessFull" />
+		<property name="successUrl" value="/index" />
 		<property name="unauthorizedUrl" value="/login/unauthorized" />
 		<property name="filterChainDefinitions">
 		<value>
 				/login = anon
-				/index = anon
 				/inLogin = anon
-				/logout = logout
+				/logout = anon
 				/role/** = roles[admin]
 				/permission/** = perms[permssion:look]
                 /resources/** =anon
@@ -21,43 +20,64 @@
 		</property>
 	</bean>
 	
+	<bean id="userRealm" class="com.shiro.UserRealm" />
+    
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!-- 基于数据库登录校验的实现 -->
 		<property name="realm" ref="userRealm" />
+		<!-- session 管理器 -->
+        <property name="sessionManager" ref="sessionManager" />
+        <!-- 缓存管理器 -->
 		<property name="cacheManager" ref="customShiroCacheManager"/>
     </bean>
     
-	<bean id="userRealm" class="com.shiro.UserRealm" />
-    
+    <!-- session管理器 -->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="globalSessionTimeout" value="1800000" /><!-- 超时时间 -->
+        <property name="sessionDAO" ref="shiroSessionDao" /><!-- session存储的实现 -->
+        <property name="sessionIdCookie" ref="sharesession" /><!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
+        <property name="sessionValidationSchedulerEnabled" value="true" /><!-- 定时检查失效的session -->
+    </bean>
+	
 	<!-- 用户缓存 -->
 	<bean id="customShiroCacheManager" class="com.shiro.cache.impl.CustomShiroCacheManager">
 	    <property name="shiroCacheManager" ref="jedisShiroCacheManager"/>
 	</bean>
 	
+	<!-- 自定义Session存储容器-->
+    <bean id="sessionDAO" class="com.shiro.session.CacheSessionDAO">
+ 		<property name="sessionIdGenerator" ref="sessionIdGenerator" />
+  	</bean>
+  	
+  	<!---cookie-->
+    <!-- uid(session id) 生成策略 -->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="${shiro.uid.cookie.name}"/>
+        <property name="domain" value="${shiro.uid.cookie.domain}"/>
+        <property name="path" value="${shiro.uid.cookie.path}"/>
+        <property name="httpOnly" value="${shiro.uid.cookie.httpOnly}"/>
+        <property name="maxAge" value="${shiro.uid.cookie.maxAge}"/>
+    </bean>
+    
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="${shiro.uid.rememeberMe.cookie.name}"/>
+        <property name="domain" value="${shiro.uid.cookie.domain}"/>
+        <property name="path" value="${shiro.uid.cookie.path}"/>
+        <property name="httpOnly" value="${shiro.uid.cookie.httpOnly}"/>
+        <property name="maxAge" value="${shiro.uid.rememeberMe.cookie.maxAge}"/>
+    </bean>
+
+    <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
+    <bean id="sharesession" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg name="name" value="myJSESSIONID" /><!-- cookie的name,对应的默认是 JSESSIONID -->
+        <property name="path" value="/" /><!-- jsessionId的path为 / 用于多个系统共享jsessionId -->
+    </bean>
+    
+    
 	<!-- shiro 缓存实现，对ShiroCacheManager，我是采用redis的实现 -->
 	<bean id="jedisShiroCacheManager" class="com.shiro.cache.impl.JedisShiroCacheManager">
 	    <property name="jedisManager" ref="jedisManager"/>
-	</bean>
-	
-	<!-- redis 的缓存 -->
-	<bean id="jedisManager" class="com.shiro.cache.JedisManager">
-	    <property name="jedisPool" ref="jedisPool"/>
-	</bean>
-	
-	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxIdle" value="100"/><!-- 最大闲置 -->
-        <property name="minIdle" value="10"/><!-- 最小闲置 -->
-        <property name="testOnBorrow" value="true"/><!-- 可以获取 -->
-		<!-- <property name="testOnReturn" value="true"/>-->
-    </bean>
-    
-	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
-		<constructor-arg index="0" ref="jedisPoolConfig" />
-	    <constructor-arg index="2" value="6379"  name="port" type="int"/>
-	    <constructor-arg index="3" value="5000"  name="timeout" type="int"/>
-	    <constructor-arg index="1" value="127.0.0.1" name="host" type="java.lang.String"/>
-	    <!-- 如果你需要配置密码，请打开这里。
-	        <constructor-arg index="4" value="你的密码" name="password" type="java.lang.String"/>
-	    -->
 	</bean>
 	
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
