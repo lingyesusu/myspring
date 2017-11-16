@@ -2,6 +2,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
+	<bean id="login" class="com.shiro.filter.LoginFilter"/>
+
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login" />
@@ -9,7 +11,9 @@
 		<property name="unauthorizedUrl" value="/login/unauthorized" />
 		<property name="filters">
             <map>
+            	<entry key="login" value-ref="login"/>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
+                <entry key="kickout" value-ref="kickoutSessionFilter"/>
             </map>
         </property>
 		<property name="filterChainDefinitions">
@@ -20,7 +24,7 @@
 				/role/** = roles[admin]
 				/permission/** = perms[permssion:look]
                 /resources/** =anon
-				/** = authc
+				/** = authc,kickout
 			</value>
 		</property>
 	</bean>
@@ -44,10 +48,16 @@
 	
     <!-- session管理器 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-        <property name="globalSessionTimeout" value="60000" /><!-- 超时时间 -->
+        <property name="globalSessionTimeout" value="1800000" /><!-- 超时时间 -->
         <property name="deleteInvalidSessions" value="true"/>
         <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
         <property name="sessionValidationSchedulerEnabled" value="true" /><!-- 定时检查失效的session -->
+        <property name="cacheManager" ref="cacheManager"/>
+        <property name="sessionListeners">
+	       <list>
+	           <ref bean="customSessionListener"/>
+	       </list>
+	   </property>
         <property name="sessionDAO" ref="sessionDAO" /><!-- session存储的实现 -->
         <property name="sessionIdCookie" ref="sessionIdCookie"/><!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
         <property name="sessionIdCookieEnabled" value="true"/>
@@ -67,14 +77,26 @@
 	
     <!-- 会话验证调度器 -->
     <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
-        <property name="sessionValidationInterval" value="60000"/>
+        <property name="sessionValidationInterval" value="1800000"/>
         <property name="sessionManager" ref="sessionManager"/>
     </bean>
 	
 	<!-- 自定义Session存储容器-->
-    <bean id="sessionDAO" class="com.shiro.session.CacheSessionDAO">
+    <bean id="sessionDAO" class="com.shiro.session.CustomShiroSessionDAO">
+	    <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
  		<property name="sessionIdGenerator" ref="sessionIdGenerator" />
   	</bean>
+  	
+  	<!-- 手动操作Session，管理Session -->
+	<bean id="customSessionManager" class="com.shiro.session.CustomSessionManager">
+		<property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
+		 <property name="customShiroSessionDAO" ref="sessionDAO"/>
+	</bean>
+  	
+  	<!-- session 创建、删除、查询 -->
+	<bean id="jedisShiroSessionRepository" class="com.shiro.cache.JedisShiroSessionRepository" >
+		 <property name="jedisManager" ref="jedisManager"/>
+	</bean>
 	
     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
 
@@ -95,6 +117,22 @@
         <property name="maxAge" value="2592000"/><!-- 30天 -->
     </bean>
     
+    <!-- session 校验单个用户是否多次登录 -->
+	<bean id="kickoutSessionFilter"   class="com.shiro.filter.KickoutSessionControlFilter">  
+	    <property name="kickoutUrl" value="/logout?kickout"/>
+	</bean>  
+	<!-- 静态注入 jedisShiroSessionRepository-->
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	    <property name="staticMethod" value="com.shiro.filter.KickoutSessionControlFilter.setShiroSessionRepository"/>
+	    <property name="arguments" ref="jedisShiroSessionRepository"/>
+	</bean>
+	
+	<!-- 静态注入，相当于调用SecurityUtils.setSecurityManager(securityManager) -->
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	    <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>
+	    <property name="arguments" ref="securityManager"/>
+	</bean>
+    
     <!-- 基于Form表单的身份验证过滤器 -->
     <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
         <property name="usernameParam" value="username"/>
@@ -102,6 +140,11 @@
         <property name="rememberMeParam" value="rememberMe"/>
         <property name="loginUrl" value="/login"/>
     </bean>
+    
+    <!-- custom shiro session listener -->
+	<bean id="customSessionListener" class="com.shiro.listenter.CustomSessionListener">
+	    <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
+	</bean>
 	
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 	

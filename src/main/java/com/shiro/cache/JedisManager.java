@@ -1,11 +1,18 @@
 package com.shiro.cache;
 
-import com.shiro.util.LoggerUtils;
-import com.shiro.util.StringUtils;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.shiro.session.Session;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisConnectionException;
+
+import com.shiro.util.LoggerUtils;
+import com.shiro.util.SerializeUtil;
+import com.shiro.util.StringUtils;
 
 /**
  * Redis Manager Utils
@@ -111,5 +118,40 @@ public class JedisManager {
     public void setJedisPool(JedisPool jedisPool) {
         this.jedisPool = jedisPool;
     }
+    
+    /**
+	 * 获取所有Session
+	 * @param dbIndex
+	 * @param redisShiroSession
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public Collection<Session> AllSession(int dbIndex, String redisShiroSession) throws Exception {
+		Jedis jedis = null;
+        boolean isBroken = false;
+        Set<Session> sessions = new HashSet<Session>();
+		try {
+            jedis = getJedis();
+            jedis.select(dbIndex);
+            
+            Set<byte[]> byteKeys = jedis.keys((JedisShiroSessionRepository.REDIS_SHIRO_ALL).getBytes());  
+            if (byteKeys != null && byteKeys.size() > 0) {  
+                for (byte[] bs : byteKeys) {  
+                	Session obj = SerializeUtil.deserialize(jedis.get(bs),  
+                    		 Session.class);  
+                     if(obj instanceof Session){
+                    	 sessions.add(obj);  
+                     }
+                }  
+            }  
+        } catch (Exception e) {
+            isBroken = true;
+            throw e;
+        } finally {
+            returnResource(jedis, isBroken);
+        }
+        return sessions;
+	}
 
 }

@@ -1,8 +1,9 @@
 package com.entity;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public class User {
+public class User implements Serializable{
 	
 	private String username;
 	private String password;
@@ -12,6 +13,22 @@ public class User {
 	private String name;
 	private Integer status;
 	private Set<Role> roles;
+	
+	public User(User user) {
+		this.username = user.username;
+		this.password = user.password;
+		this.dept_id = user.dept_id;
+		this.age = user.age;
+		this.id = user.id;
+		this.name = user.name;
+		this.status = user.status;
+		this.roles = user.roles;
+	}
+	
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getUsername() {
 		return username;
 	}
