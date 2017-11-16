@@ -7,6 +7,11 @@
 		<property name="loginUrl" value="/login" />
 		<property name="successUrl" value="/index" />
 		<property name="unauthorizedUrl" value="/login/unauthorized" />
+		<property name="filters">
+            <map>
+                <entry key="authc" value-ref="formAuthenticationFilter"/>
+            </map>
+        </property>
 		<property name="filterChainDefinitions">
 		<value>
 				/login = anon
@@ -25,60 +30,78 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<!-- 基于数据库登录校验的实现 -->
 		<property name="realm" ref="userRealm" />
+        <!-- 缓存管理器 -->
+		<property name="cacheManager" ref="cacheManager"/>
 		<!-- session 管理器 -->
         <property name="sessionManager" ref="sessionManager" />
-        <!-- 缓存管理器 -->
-		<property name="cacheManager" ref="customShiroCacheManager"/>
+		<property name="rememberMeManager" ref="rememberMeManager"/>
     </bean>
     
+	<!-- 用户缓存 -->
+	<bean id="cacheManager" class="com.shiro.cache.impl.CustomShiroCacheManager">
+	    <property name="shiroCacheManager" ref="shiroCacheManager"/>
+	</bean>
+	
     <!-- session管理器 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-        <property name="globalSessionTimeout" value="1800000" /><!-- 超时时间 -->
-        <property name="sessionDAO" ref="shiroSessionDao" /><!-- session存储的实现 -->
-        <property name="sessionIdCookie" ref="sharesession" /><!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
+        <property name="globalSessionTimeout" value="60000" /><!-- 超时时间 -->
+        <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
         <property name="sessionValidationSchedulerEnabled" value="true" /><!-- 定时检查失效的session -->
+        <property name="sessionDAO" ref="sessionDAO" /><!-- session存储的实现 -->
+        <property name="sessionIdCookie" ref="sessionIdCookie"/><!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
+        <property name="sessionIdCookieEnabled" value="true"/>
     </bean>
-	
-	<!-- 用户缓存 -->
-	<bean id="customShiroCacheManager" class="com.shiro.cache.impl.CustomShiroCacheManager">
-	    <property name="shiroCacheManager" ref="jedisShiroCacheManager"/>
+    
+    <!-- rememberMe管理器 -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <!-- rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位）-->
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>
+    </bean>
+    
+	<!-- shiro 缓存实现，对ShiroCacheManager，我是采用redis的实现 -->
+	<bean id="shiroCacheManager" class="com.shiro.cache.impl.JedisShiroCacheManager">
+	    <property name="jedisManager" ref="jedisManager"/>
 	</bean>
+	
+    <!-- 会话验证调度器 -->
+    <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
+        <property name="sessionValidationInterval" value="60000"/>
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
 	
 	<!-- 自定义Session存储容器-->
     <bean id="sessionDAO" class="com.shiro.session.CacheSessionDAO">
  		<property name="sessionIdGenerator" ref="sessionIdGenerator" />
   	</bean>
-  	
-  	<!---cookie-->
-    <!-- uid(session id) 生成策略 -->
+	
     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
-    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg value="${shiro.uid.cookie.name}"/>
-        <property name="domain" value="${shiro.uid.cookie.domain}"/>
-        <property name="path" value="${shiro.uid.cookie.path}"/>
-        <property name="httpOnly" value="${shiro.uid.cookie.httpOnly}"/>
-        <property name="maxAge" value="${shiro.uid.cookie.maxAge}"/>
-    </bean>
-    
-    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg value="${shiro.uid.rememeberMe.cookie.name}"/>
-        <property name="domain" value="${shiro.uid.cookie.domain}"/>
-        <property name="path" value="${shiro.uid.cookie.path}"/>
-        <property name="httpOnly" value="${shiro.uid.cookie.httpOnly}"/>
-        <property name="maxAge" value="${shiro.uid.rememeberMe.cookie.maxAge}"/>
-    </bean>
 
-    <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->
-    <bean id="sharesession" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg name="name" value="myJSESSIONID" /><!-- cookie的name,对应的默认是 JSESSIONID -->
-        <property name="path" value="/" /><!-- jsessionId的path为 / 用于多个系统共享jsessionId -->
+  	<!-- cookie-->
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg name="name" value="sid" /><!-- cookie的name,对应的默认是 JSESSIONID -->
+        <property name="domain" value=""/>
+        <property name="path" value="/"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="-1"/>
     </bean>
     
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="domain" value=""/>
+        <property name="path" value="/"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="2592000"/><!-- 30天 -->
+    </bean>
     
-	<!-- shiro 缓存实现，对ShiroCacheManager，我是采用redis的实现 -->
-	<bean id="jedisShiroCacheManager" class="com.shiro.cache.impl.JedisShiroCacheManager">
-	    <property name="jedisManager" ref="jedisManager"/>
-	</bean>
+    <!-- 基于Form表单的身份验证过滤器 -->
+    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+        <property name="usernameParam" value="username"/>
+        <property name="passwordParam" value="password"/>
+        <property name="rememberMeParam" value="rememberMe"/>
+        <property name="loginUrl" value="/login"/>
+    </bean>
 	
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 	

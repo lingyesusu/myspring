@@ -19,15 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *
- * All rights Reserved, Designed By www.dataact.cn
- * @title:  StringUtils.java
- * @package cn.dataact.common.util
  * @description: Jedis Cache 工具类
- * @author: 王存见
- * @date:   2017年6月27日 下午10:41:03
- * @version V1.0
- * @copyright: 2017  www.dataact.cn Inc. All rights reserved.
  *
  */
 public class JedisUtils {

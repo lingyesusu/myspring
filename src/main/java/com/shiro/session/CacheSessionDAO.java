@@ -13,18 +13,15 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.google.common.collect.Sets;
 
-import cn.jeeweb.core.utils.DateUtils;
-import cn.jeeweb.core.utils.JeewebPropertiesUtil;
-import cn.jeeweb.core.utils.ServletUtils;
-import cn.jeeweb.core.utils.StringUtils;
+import com.google.common.collect.Sets;
+import com.shiro.util.DateUtils;
+import com.shiro.util.JeewebPropertiesUtil;
+import com.shiro.util.ServletUtils;
+import com.shiro.util.StringUtils;
 
 /**
  * 自定义WEB会话管理类
- * 
- * @author 王存见
- * @version 2017-02-23
  */
 public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements SessionDAO {
 

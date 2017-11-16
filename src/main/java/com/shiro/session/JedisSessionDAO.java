@@ -1,10 +1,12 @@
 package com.shiro.session;
 
-import cn.jeeweb.core.utils.*;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
-import com.google.common.collect.Sets;
-import com.shiro.util.JedisUtils;
-import com.shiro.util.StringUtils;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
@@ -17,19 +19,15 @@ import org.slf4j.LoggerFactory;
 
 import redis.clients.jedis.Jedis;
 
-import javax.servlet.http.HttpServletRequest;
-
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import com.google.common.collect.Sets;
+import com.shiro.util.DateUtils;
+import com.shiro.util.JedisUtils;
+import com.shiro.util.JeewebPropertiesUtil;
+import com.shiro.util.ServletUtils;
+import com.shiro.util.StringUtils;
 
 /**
  * 自定义授权会话管理类
- * 
- * @author 王存见
- *
  */
 public class JedisSessionDAO extends AbstractSessionDAO implements SessionDAO {
 
