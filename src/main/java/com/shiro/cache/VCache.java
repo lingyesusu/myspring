@@ -7,34 +7,17 @@ import java.util.TreeSet;
 
 import redis.clients.jedis.Jedis;
 
+import com.shiro.cache.redis.impl.JedisManager;
 import com.shiro.util.SerializeUtil;
 import com.tools.SpringUtils;
 
-
 /**
- * 
- * 开发公司：SOJSON在线工具 <p>
- * 版权所有：© www.sojson.com<p>
- * 博客地址：http://www.sojson.com/blog/  <p>
- * <p>
- * 
  * 简单封装的Cache
- * 
- * <p>
- * 
- * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2016年6月2日 　<br/>
- *
- * @author zhou-baicheng
- * @email  so@sojson.com
- * @version 1.0,2016年6月2日 <br/>
- * 
  */
 @SuppressWarnings("unchecked")
 public class VCache {
-	/****
-	VCache和 {@link JedisManager}
-	 * 没啥区别，我只是想把shiro的操作和 业务Cache的操作分开
+	/**
+	 * VCache和JedisManager没啥区别，我只是想把shiro的操作和 业务Cache的操作分开
 	 */
 
 	final static JedisManager J = (JedisManager) SpringUtils.getBean("jedisManager");

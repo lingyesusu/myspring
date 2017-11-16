@@ -1,4 +1,4 @@
-package com.shiro.session;
+package com.shiro.custo;
 
 
 import java.util.ArrayList;
@@ -14,25 +14,12 @@ import org.apache.shiro.subject.support.DefaultSubjectContext;
 
 import com.entity.User;
 import com.shiro.manager.UserOnlineBo;
+import com.shiro.session.ShiroSessionRepository;
+import com.shiro.session.impl.CustomShiroSessionDAO;
 import com.shiro.util.LoggerUtils;
 import com.shiro.util.StringUtils;
 /**
- * 
- * 开发公司：SOJSON在线工具 <p>
- * 版权所有：© www.sojson.com<p>
- * 博客地址：http://www.sojson.com/blog/  <p>
- * <p>
- * 
  * 用户Session 手动管理
- * 
- * <p>
- * 
- * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2016年6月2日 　<br/>
- *
- * @author zhou-baicheng
- * @email  so@sojson.com
- * @version 1.0,2016年6月2日 <br/>
  * 
  */
 

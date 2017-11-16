@@ -1,19 +1,18 @@
-package com.shiro.cache;
+package com.shiro.session.impl;
 
 import java.io.Serializable;
 import java.util.Collection;
 
 import org.apache.shiro.session.Session;
 
-import com.shiro.session.CustomSessionManager;
-import com.shiro.session.SessionStatus;
+import com.shiro.cache.redis.impl.JedisManager;
+import com.shiro.custo.CustomSessionManager;
+import com.shiro.custo.SessionStatus;
 import com.shiro.session.ShiroSessionRepository;
 import com.shiro.util.LoggerUtils;
 import com.shiro.util.SerializeUtil;
 /**
- * Session 管理
- * @author sojson.com
- *
+ * redis管理Session方法
  */
 @SuppressWarnings("unchecked")
 public class JedisShiroSessionRepository implements ShiroSessionRepository {
@@ -22,7 +21,6 @@ public class JedisShiroSessionRepository implements ShiroSessionRepository {
     public static final String REDIS_SHIRO_ALL = "*sojson-shiro-demo-session:*";
     private static final int SESSION_VAL_TIME_SPAN = 18000;
     private static final int DB_INDEX = 1;
-
     private JedisManager jedisManager;
 
     @Override
@@ -31,17 +29,13 @@ public class JedisShiroSessionRepository implements ShiroSessionRepository {
             throw new NullPointerException("session is empty");
         try {
             byte[] key = SerializeUtil.serialize(buildRedisSessionKey(session.getId()));
-            
-            
             //不存在才添加。
             if(null == session.getAttribute(CustomSessionManager.SESSION_STATUS)){
             	//Session 踢出自存存储。
             	SessionStatus sessionStatus = new SessionStatus();
             	session.setAttribute(CustomSessionManager.SESSION_STATUS, sessionStatus);
             }
-            
             byte[] value = SerializeUtil.serialize(session);
-
 
             /**这里是我犯下的一个严重问题，但是也不会是致命，
              * 我计算了下，之前上面不小心给我加了0，也就是 18000 / 3600 = 5 个小时
@@ -55,9 +49,8 @@ public class JedisShiroSessionRepository implements ShiroSessionRepository {
                 Long expireTime = sessionTimeOut + SESSION_VAL_TIME_SPAN + (5 * 60);
              */
 
-
             /*
-            直接使用 (int) (session.getTimeout() / 1000) 的话，session失效和redis的TTL 同时生效
+            	直接使用 (int) (session.getTimeout() / 1000) 的话，session失效和redis的TTL 同时生效
              */
             getJedisManager().saveValueByKey(DB_INDEX, key, value, (int) (session.getTimeout() / 1000));
         } catch (Exception e) {
@@ -77,7 +70,6 @@ public class JedisShiroSessionRepository implements ShiroSessionRepository {
         	LoggerUtils.fmtError(getClass(), e, "删除session出现异常，id:[%s]",id);
         }
     }
-
    
 	@Override
     public Session getSession(Serializable id) {
@@ -102,7 +94,6 @@ public class JedisShiroSessionRepository implements ShiroSessionRepository {
 		} catch (Exception e) {
 			LoggerUtils.fmtError(getClass(), e, "获取全部session异常");
 		}
-       
         return sessions;
     }
 
@@ -117,4 +108,5 @@ public class JedisShiroSessionRepository implements ShiroSessionRepository {
     public void setJedisManager(JedisManager jedisManager) {
         this.jedisManager = jedisManager;
     }
+    
 }

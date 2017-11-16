@@ -57,6 +57,7 @@ public class UserServiceImpl implements UserService {
 			user.setDept_id(1);
 			user.setName("user");
 			user.setStatus(1);
+			user.setId(1);
 		}else{
 			user = new User();
 			user.setUsername("admin");
@@ -65,6 +66,7 @@ public class UserServiceImpl implements UserService {
 			user.setDept_id(2);
 			user.setName("admin");
 			user.setStatus(1);
+			user.setId(2);
 		}
 		return user;
 	}

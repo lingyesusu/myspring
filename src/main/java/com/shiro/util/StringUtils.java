@@ -24,7 +24,6 @@ import sun.misc.BASE64Decoder;
 /**
  * String工具
  * 主要对 StringUtils 的一些方法进行重写,达到更方便的使用
- * @author zhou-baicheng
  *
  */
 public class StringUtils extends org.apache.commons.lang.StringUtils{

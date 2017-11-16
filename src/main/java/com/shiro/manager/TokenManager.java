@@ -3,32 +3,15 @@ package com.shiro.manager;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 
 import com.entity.User;
 import com.shiro.UserRealm;
-import com.shiro.session.CustomSessionManager;
+import com.shiro.custo.CustomSessionManager;
 import com.tools.SpringUtils;
 
-
-
-
 /**
- * 
- * <p>
- * 
- * <p>
- * 
- * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2014年3月3日 　<br/>
- * <p>
- * 
- * @author zhou-baicheng
- * 
- * @version 1.0,2014年3月3日 
- * 
  * Shiro管理下的Token工具类
  */
 public class TokenManager {
@@ -44,8 +27,6 @@ public class TokenManager {
 		User token = (User)SecurityUtils.getSubject().getPrincipal();
 		return token ;
 	}
-	
-	
 	
 	/**
 	 * 获取当前用户的Session

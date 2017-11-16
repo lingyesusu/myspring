@@ -6,11 +6,12 @@ import java.util.Set;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 
+import com.shiro.cache.redis.impl.JedisManager;
 import com.shiro.util.LoggerUtils;
 import com.shiro.util.SerializeUtil;
 
 /**
- * 缓存获取Manager
+ * jedis对缓存的操作
  */
 @SuppressWarnings("unchecked")
 public class JedisShiroCache<K, V> implements Cache<K, V> {
@@ -27,7 +28,6 @@ public class JedisShiroCache<K, V> implements Cache<K, V> {
     private JedisManager jedisManager;
     
     private String name;
-
     
 	@SuppressWarnings("rawtypes")
 	static final Class<JedisShiroCache> SELF = JedisShiroCache.class;

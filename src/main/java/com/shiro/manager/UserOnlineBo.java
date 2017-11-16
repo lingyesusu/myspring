@@ -5,9 +5,7 @@ import java.util.Date;
 
 import com.entity.User;
 /**
- * Session  + User Bo
- * @author sojson.com
- *
+ * Session  + User
  */
 public class UserOnlineBo extends User implements Serializable {
 

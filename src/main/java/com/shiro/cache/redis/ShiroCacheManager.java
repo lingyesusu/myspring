@@ -1,9 +1,9 @@
-package com.shiro.cache;
+package com.shiro.cache.redis;
 
 import org.apache.shiro.cache.Cache;
 
 /**
- * shiro cache manager 接口
+ * JRedis管理cache接口
  */
 public interface ShiroCacheManager {
 

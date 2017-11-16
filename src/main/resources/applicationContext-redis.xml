@@ -32,7 +32,7 @@
 	</bean>
 	
 	<!-- redis 的缓存 -->
-	<bean id="jedisManager" class="com.shiro.cache.JedisManager">
+	<bean id="jedisManager" class="com.shiro.cache.redis.impl.JedisManager">
 	    <property name="jedisPool" ref="jedisPool"/>
 	</bean>
 

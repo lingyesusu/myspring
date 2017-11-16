@@ -24,22 +24,7 @@ import com.shiro.session.ShiroSessionRepository;
 import com.shiro.util.LoggerUtils;
 
 /**
- * 
- * 开发公司：SOJSON在线工具 <p>
- * 版权所有：© www.sojson.com<p>
- * 博客地址：http://www.sojson.com/blog/  <p>
- * <p>
- * 
  * 相同帐号登录控制
- * 
- * <p>
- * 
- * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2016年6月2日 　<br/>
- *
- * @author zhou-baicheng
- * @email  so@sojson.com
- * @version 1.0,2016年6月2日 <br/>
  * 
  */
 @SuppressWarnings({"unchecked","static-access"})
@@ -51,15 +36,16 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
 	//踢出状态，true标示踢出
 	final static String KICKOUT_STATUS = KickoutSessionControlFilter.class.getCanonicalName()+ "_kickout_status";
 	static VCache cache;
-	
 	//session获取
 	static ShiroSessionRepository shiroSessionRepository;
 	
-	
+	/**
+	 * 先调用isAccessAllowed，如果返回的是true，则直接放行执行后面的filter和servlet
+	 * 如果返回的是false，则继续执行后面的onAccessDenied方法，如果后面返回的是true则也可以有权限继续执行后面的filter和servelt
+	 * 只有两个函数都返回false才会阻止后面的filter和servlet的执行
+	 */
 	@Override
-	protected boolean isAccessAllowed(ServletRequest request,
-			ServletResponse response, Object mappedValue) throws Exception {
-		
+	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
 		HttpServletRequest httpRequest = ((HttpServletRequest)request);
 		String url = httpRequest.getRequestURI();
 		Subject subject = getSubject(request, response);
@@ -86,7 +72,6 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
 			}
 			return  Boolean.FALSE;
 		}
-		
 		
 		//从缓存获取用户-Session信息 <UserId,SessionId>
 		LinkedHashMap<Integer, Serializable> infoMap = cache.get(ONLINE_USER, LinkedHashMap.class);
@@ -133,9 +118,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
 		return Boolean.TRUE;
 	}
 	@Override
-	protected boolean onAccessDenied(ServletRequest request,
-			ServletResponse response) throws Exception {
-		
+	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
 		//先退出
 		Subject subject = getSubject(request, response);
 		subject.logout();
@@ -144,8 +127,8 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
 		WebUtils.issueRedirect(request, response,kickoutUrl);
 		return false;
 	}
-	private void out(ServletResponse hresponse, Map<String, String> resultMap)
-			throws IOException {
+	
+	private void out(ServletResponse hresponse, Map<String, String> resultMap) throws IOException {
 		try {
 			hresponse.setCharacterEncoding("UTF-8");
 			PrintWriter out = hresponse.getWriter();
@@ -156,16 +139,18 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
 			LoggerUtils.error(getClass(), "KickoutSessionFilter.class 输出JSON异常，可以忽略。");
 		}
 	}
+	
 	public static void setShiroSessionRepository(
 			ShiroSessionRepository shiroSessionRepository) {
 		KickoutSessionControlFilter.shiroSessionRepository = shiroSessionRepository;
 	}
+	
 	public String getKickoutUrl() {
 		return kickoutUrl;
 	}
+	
 	public void setKickoutUrl(String kickoutUrl) {
 		this.kickoutUrl = kickoutUrl;
 	}
-	
 	
 }
