@@ -42,7 +42,7 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-
+    	clearAuthz();
         String username = (String)token.getPrincipal();
         Object user = userService.login(username);
 
@@ -88,7 +88,11 @@ public class UserRealm extends AuthorizingRealm {
     }
     
     public void clearAuthz(){  
-        this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());  
+        this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
+        PrincipalCollection principalCollection = SecurityUtils.getSubject().getPrincipals();
+		SimplePrincipalCollection principals = new SimplePrincipalCollection(
+				principalCollection, getName());
+		this.clearCachedAuthorizationInfo(principals);
     }
     
     /**

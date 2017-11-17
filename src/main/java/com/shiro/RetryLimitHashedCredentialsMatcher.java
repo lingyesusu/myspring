@@ -42,7 +42,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
         //System.out.println(info.getPrincipals());
         if(matches) {
             //clear retry count
-        	VCache.delByKey(JedisShiroContant.REDIS_SHIRO_CACHE_PASSWORDRETRY+username);
+        	VCache.setex(JedisShiroContant.REDIS_SHIRO_CACHE_PASSWORDRETRY+username, new AtomicInteger(0), 10*60);
         }
         return matches;
     }
