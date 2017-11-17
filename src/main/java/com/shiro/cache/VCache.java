@@ -8,6 +8,7 @@ import java.util.TreeSet;
 import redis.clients.jedis.Jedis;
 
 import com.shiro.cache.redis.impl.JedisManager;
+import com.shiro.manager.JedisShiroContant;
 import com.shiro.util.SerializeUtil;
 import com.tools.SpringUtils;
 
@@ -35,7 +36,7 @@ public class VCache {
         boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			byte[] skey = SerializeUtil.serialize(key);
 			return SerializeUtil.deserialize(jds.get(skey),requiredType);
         } catch (Exception e) {
@@ -56,7 +57,7 @@ public class VCache {
         boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			byte[] skey = SerializeUtil.serialize(key);
 			byte[] svalue = SerializeUtil.serialize(value);
 			jds.set(skey, svalue);
@@ -78,7 +79,7 @@ public class VCache {
         boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			byte[] skey = SerializeUtil.serialize(key);
 			byte[] svalue = SerializeUtil.serialize(value);
 			jds.setex(skey, timer, svalue);
@@ -103,7 +104,7 @@ public class VCache {
 		boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			byte[] mkey = SerializeUtil.serialize(mapkey);
 			byte[] skey = SerializeUtil.serialize(key);
 			List<byte[]> result = jds.hmget(mkey, skey);
@@ -132,7 +133,7 @@ public class VCache {
         boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			byte[] mkey = SerializeUtil.serialize(mapkey);
 			byte[] skey = SerializeUtil.serialize(key);
 			byte[] svalue = SerializeUtil.serialize(value);
@@ -156,7 +157,7 @@ public class VCache {
 		boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			byte[][] dx = new byte[dkey.length][];
 			for (int i = 0; i < dkey.length; i++) {
 				dx[i] = SerializeUtil.serialize(dkey[i]);
@@ -188,7 +189,7 @@ public class VCache {
 		boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			byte[] lkey = SerializeUtil.serialize(setKey);
 			Set<T> set = new TreeSet<T>();
 			Set<byte[]> xx = jds.smembers(lkey);
@@ -215,7 +216,7 @@ public class VCache {
 		boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			Long result = jds.scard(setKey);
 			return result;
 		} catch (Exception e) {
@@ -236,7 +237,7 @@ public class VCache {
 		boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			Long result = 0L;
 			if(null == dkey){
 				result = jds.srem(key);
@@ -262,7 +263,7 @@ public class VCache {
 		boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			String result = jds.srandmember(key);
 			return result;
 		} catch (Exception e){ 
@@ -283,7 +284,7 @@ public class VCache {
         boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			jds.sadd(setKey, value);
 		} catch (Exception e) {
             isBroken = true;
@@ -302,7 +303,7 @@ public class VCache {
         boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			Set<String> result = jds.smembers(key);
 			return result;
 		} catch (Exception e) {
@@ -326,7 +327,7 @@ public class VCache {
 		boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			byte[] lkey = SerializeUtil.serialize(listKey);
 			byte[] svalue = SerializeUtil.serialize(value);
 			jds.rpush(lkey, svalue);
@@ -352,7 +353,7 @@ public class VCache {
 		boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			byte[] lkey = SerializeUtil.serialize(listKey);
 			List<T> list = new ArrayList<T>();
 			List<byte[]> xx = jds.lrange(lkey,start,end);
@@ -379,7 +380,7 @@ public class VCache {
 		boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			byte[] lkey = SerializeUtil.serialize(listKey);
 			Long result = jds.llen(lkey);
 			return result;
@@ -401,7 +402,7 @@ public class VCache {
 		boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			byte[][] dx = new byte[dkey.length][];
 			for (int i = 0; i < dkey.length; i++) {
 				dx[i] = SerializeUtil.serialize(dkey[i]);
@@ -426,7 +427,7 @@ public class VCache {
 		boolean isBroken = false;
 		try {
 			jds = J.getJedis();
-			jds.select(0);
+			jds.select(JedisShiroContant.REDIS_CACHE_DB_INDEX);
 			byte[] lkey = SerializeUtil.serialize(existskey);
 			return jds.exists(lkey);
 		} catch (Exception e) {

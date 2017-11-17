@@ -6,11 +6,14 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.springframework.stereotype.Service;
 
 import com.dao.UserDao;
 import com.entity.User;
 import com.service.UserService;
+import com.shiro.UserRealm;
 
 @Service
 public class UserServiceImpl implements UserService {

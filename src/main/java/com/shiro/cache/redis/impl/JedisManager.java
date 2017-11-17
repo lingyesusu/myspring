@@ -10,7 +10,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 
-import com.shiro.session.impl.JedisShiroSessionRepository;
+import com.shiro.manager.JedisShiroContant;
 import com.shiro.util.LoggerUtils;
 import com.shiro.util.SerializeUtil;
 import com.shiro.util.StringUtils;
@@ -122,7 +122,7 @@ public class JedisManager {
             jedis = getJedis();
             jedis.select(dbIndex);
             
-            Set<byte[]> byteKeys = jedis.keys((JedisShiroSessionRepository.REDIS_SHIRO_ALL).getBytes());  
+            Set<byte[]> byteKeys = jedis.keys((JedisShiroContant.REDIS_SHIRO_ALL).getBytes());  
             if (byteKeys != null && byteKeys.size() > 0) {  
                 for (byte[] bs : byteKeys) {  
                 	Session obj = SerializeUtil.deserialize(jedis.get(bs),  

@@ -13,6 +13,7 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
 
 import com.entity.User;
+import com.shiro.manager.JedisShiroContant;
 import com.shiro.manager.UserOnlineBo;
 import com.shiro.session.ShiroSessionRepository;
 import com.shiro.session.impl.CustomShiroSessionDAO;
@@ -25,10 +26,6 @@ import com.shiro.util.StringUtils;
 
 public class CustomSessionManager {
 
-	/**
-	 * session status 
-	 */
-	public static final String SESSION_STATUS ="sojson-online-status";
 	ShiroSessionRepository shiroSessionRepository;
 	
 	CustomShiroSessionDAO customShiroSessionDAO;
@@ -125,7 +122,7 @@ public class CustomSessionManager {
 				//session创建时间
 				userBo.setStartTime(session.getStartTimestamp());
 				//是否踢出
-				SessionStatus sessionStatus = (SessionStatus)session.getAttribute(SESSION_STATUS);
+				SessionStatus sessionStatus = (SessionStatus)session.getAttribute(JedisShiroContant.REDIS_SHIRO_SESSION_STATUS);
 				boolean status = Boolean.TRUE;
 				if(null != sessionStatus){
 					status = sessionStatus.getOnlineStatus();
@@ -156,7 +153,7 @@ public class CustomSessionManager {
 				Session session = shiroSessionRepository.getSession(id);
 				SessionStatus sessionStatus = new SessionStatus();
 				sessionStatus.setOnlineStatus(status);
-				session.setAttribute(SESSION_STATUS, sessionStatus);
+				session.setAttribute(JedisShiroContant.REDIS_SHIRO_SESSION_STATUS, sessionStatus);
 				customShiroSessionDAO.update(session);
 			}
 			map.put("status", 200);
@@ -184,7 +181,7 @@ public class CustomSessionManager {
 				//获取用户Session
 				Session session = shiroSessionRepository.getSession(bo.getSessionId());
 				//标记用户Session
-				SessionStatus sessionStatus = (SessionStatus) session.getAttribute(SESSION_STATUS);
+				SessionStatus sessionStatus = (SessionStatus) session.getAttribute(JedisShiroContant.REDIS_SHIRO_SESSION_STATUS);
 				//是否踢出 true:有效，false：踢出。
 				sessionStatus.setOnlineStatus(status.intValue() == 1);
 				//更新Session

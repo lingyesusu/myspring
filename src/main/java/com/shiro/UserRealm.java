@@ -87,6 +87,10 @@ public class UserRealm extends AuthorizingRealm {
         clearAllCachedAuthorizationInfo();
     }
     
+    public void clearAuthz(){  
+        this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());  
+    }
+    
     /**
      * 清空当前用户权限信息
      */

@@ -3,6 +3,7 @@ package com.shiro.manager;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 
@@ -26,6 +27,15 @@ public class TokenManager {
 	public static User getToken(){
 		User token = (User)SecurityUtils.getSubject().getPrincipal();
 		return token ;
+	}
+	
+	/**
+	* shiro 动态修改资源权限不需要重启项目或者重新登录用户
+	 */  
+	public static void clearAuth(){  
+	    RealmSecurityManager rsm = (RealmSecurityManager)SecurityUtils.getSecurityManager();  
+	    UserRealm userRealm = (UserRealm)rsm.getRealms().iterator().next();  
+	    userRealm.clearAuthz();  
 	}
 	
 	/**
