@@ -1,6 +1,7 @@
 package com.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,11 @@ public interface UserDao {
 	public void delById(Integer id);
 	public void add(User user);
 	public User login(String name);
+	
+	//查询存储过程的方法
+    public void callProcedure(Map map);
+    public List<User> callProcedureList(Map map);
+    //查询函数的方法
+    public void callFunction(Map map);
 
 }

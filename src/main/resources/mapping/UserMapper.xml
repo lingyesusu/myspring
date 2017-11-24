@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
-<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
- "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.UserDao"><!-- 映射到哪个接口 -->
 	<select id="getAll" resultType="com.entity.User" >
 		select * from user
@@ -21,6 +20,50 @@
 	<update id="updateById" parameterType="com.entity.User">
 		update user set username=#{username},password=#{password},dept_id=#{dept_id},age=#{age},name=#{name},status=#{status} where id=#{id}
 	</update>
+	
+	<!-- 定义存储过程 -->
+   
+	
+	<select id="callProcedure" statementType="CALLABLE" parameterType="java.util.HashMap" resultType="Integer">
+           {call pag_add(
+              #{p1,mode=IN,jdbcType=INTEGER},
+              #{p2,mode=IN,jdbcType=INTEGER},
+              #{p3,mode=OUT,jdbcType=INTEGER}
+              
+           )}    
+       
+    </select>
+	
+	<resultMap type="com.entity.User" id="records">
+        <result property="username" column="username" jdbcType="NVARCHAR" javaType="String"/>
+        <result property="password" column="password" jdbcType="NVARCHAR" javaType="String" />
+        <result property="dept_id" column="dept_id" jdbcType="NVARCHAR" javaType="Integer"  />
+        <result property="age" column="age" jdbcType="NVARCHAR" javaType="Integer" />
+        <result property="id" column="id" jdbcType="INTEGER" javaType="Integer" />
+        <result property="name" column="name" jdbcType="NVARCHAR" javaType="String" />
+        <result property="status" column="status" jdbcType="NVARCHAR" javaType="Integer" />
+        <collection property="roles" ofType="com.entity.User" select="com.dao.User_roleDao.User_roleMapper.getByUserId" column="{id=id}"><!-- 可以多列传值 -->
+            <!--  扩展，多列的值传递过去，将多列的值封装map传递
+			       column="{key1=column1,key2=column2}" 
+			       fetchType="lazy":表示使用延迟加载
+			       - lazy:延迟
+			       - eager:立即-->
+        </collection>
+    </resultMap>
+    
+    <select id="callProcedureList" statementType="CALLABLE" resultType="com.entity.User" parameterType="map">         
+         {call scList()}
+    </select>
+	
+	<!-- 定义函数 -->
+	<!-- <select id="callFunction" parameterType="map" statementType="CALLABLE">
+	        {
+	            #{p3,mode=OUT,jdbcType=NUMERIC}=call fun_add(
+	                #{p1,mode=IN,jdbcType=NUMERIC},
+	             #{p2,mode=IN,jdbcType=NUMERIC}
+	            )
+	        }
+	</select> -->
 	
 	<!-- <sql id="">
 			SELECT

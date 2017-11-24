@@ -2,6 +2,7 @@ package com.service.Impl;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -98,6 +99,28 @@ public class UserServiceImpl implements UserService {
 			permissions.add("adminpermission");
 		}
 		return permissions;
+	}
+
+	@Override
+	public Integer callProcedure(Map map) {
+		userDao.callProcedure(map);
+		Integer integer = (Integer)map.get("p3");
+		return integer;
+		
+	}
+	
+	@Override
+	public List<User> callProcedureList(Map map) {
+		return userDao.callProcedureList(map);
+		
+	}
+
+	@Override
+	public Integer callFunction(Map map) {
+		userDao.callFunction(map);
+		Integer integer = (Integer)map.get("p3");
+		return integer;
+		
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.entity.User;
@@ -15,5 +16,10 @@ public interface UserService {
 	public Object login(String username);
 	public Set<String> getRolesByName(String username);
 	public Set<String> getPermissionsByName(String username);
+	
+	public Integer callProcedure(Map map);
+	public List<User> callProcedureList(Map map);
+	
+	public Integer callFunction(Map map);
 
 }

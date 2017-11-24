@@ -1,12 +1,14 @@
 package com.service.Impl;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.dao.User_roleDao;
+import com.entity.Role;
 import com.entity.User_role;
 import com.service.User_roleService;
 
@@ -42,6 +44,12 @@ public class User_roleServiceImpl implements User_roleService {
 	public void add(User_role user) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Set<Role> getByUserId(Integer id) {
+		// TODO Auto-generated method stub
+		return user_roleDao.getByUserId(id);
 	}
 
 }
