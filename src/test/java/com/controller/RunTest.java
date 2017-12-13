@@ -70,8 +70,8 @@ public class RunTest {
 		Map map=new HashMap<String, Integer>();
 		map.put("p1", 1);
 		map.put("p2", 2);
-		Set<Role> byUserId = user_roleService.getByUserId(1);
-		System.out.println(byUserId.size());
+//		Set<Role> byUserId = user_roleService.getByUserId(1);
+//		System.out.println(byUserId.size());
 		
 //		Integer callFunction = userService.callFunction(map);
 		List<User> callProcedure = userService.callProcedureList(map);

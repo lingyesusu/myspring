@@ -22,16 +22,12 @@
 	</update>
 	
 	<!-- 定义存储过程 -->
-   
-	
 	<select id="callProcedure" statementType="CALLABLE" parameterType="java.util.HashMap" resultType="Integer">
            {call pag_add(
               #{p1,mode=IN,jdbcType=INTEGER},
               #{p2,mode=IN,jdbcType=INTEGER},
               #{p3,mode=OUT,jdbcType=INTEGER}
-              
-           )}    
-       
+           )}
     </select>
 	
 	<resultMap type="com.entity.User" id="records">
@@ -51,7 +47,7 @@
         </collection>
     </resultMap>
     
-    <select id="callProcedureList" statementType="CALLABLE" resultType="com.entity.User" parameterType="map">         
+    <select id="callProcedureList" statementType="CALLABLE" resultMap="records" parameterType="map">         
          {call scList()}
     </select>
 	
