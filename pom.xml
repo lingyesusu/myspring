@@ -9,7 +9,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring.version>4.1.4.RELEASE</spring.version><!-- 3.2.9.RELEASE -->
-    <mybatis.version>3.1.1</mybatis.version>  
+    <mybatis.version>3.1.1</mybatis.version>
+    <version.cxf>3.0.5</version.cxf><!-- cxf版本 -->
     <mybatisspring.version>1.1.1</mybatisspring.version>
   </properties>
   
@@ -318,6 +319,39 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>17.0</version>
+		</dependency>
+		
+		<!-- CXF -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${version.cxf}</version>
+			<exclusions><!-- CXF依赖的ASM包与CGLIB依赖的版本冲突,不排除会报错 -->
+				<exclusion>
+					<groupId>asm</groupId>
+					<artifactId>asm</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-databinding-aegis</artifactId>
+			<version>${version.cxf}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-databinding-jaxb</artifactId>
+			<version>${version.cxf}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-bindings-soap</artifactId>
+			<version>${version.cxf}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${version.cxf}</version>
 		</dependency>
   </dependencies>
   
