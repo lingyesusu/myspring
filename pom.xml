@@ -8,7 +8,7 @@
   <description/>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spring.version>3.2.9.RELEASE</spring.version>  
+    <spring.version>4.1.4.RELEASE</spring.version><!-- 3.2.9.RELEASE -->
     <mybatis.version>3.1.1</mybatis.version>  
     <mybatisspring.version>1.1.1</mybatisspring.version>
   </properties>
@@ -23,7 +23,12 @@
             <groupId>org.springframework</groupId>  
             <artifactId>spring-webmvc</artifactId>  
             <version>${spring.version}</version>  
-        </dependency>  
+        </dependency>
+        <dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-beans</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
         <dependency>  
             <groupId>org.springframework</groupId>  
             <artifactId>spring-test</artifactId>  

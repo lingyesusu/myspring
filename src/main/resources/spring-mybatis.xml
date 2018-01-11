@@ -20,9 +20,9 @@
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
       destroy-method="close">
     <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://45.32.166.90:3306/annie" />
+    <property name="url" value="jdbc:mysql://127.0.0.1:3306/annie" /><!-- 45.32.166.90 -->
     <property name="username" value="root" />
-    <property name="password" value="123456" />
+    <property name="password" value="arno123456" /><!-- 123456 -->
     <!-- 初始化连接大小 -->
     <property name="initialSize" value="0"></property>
     <!-- 连接池最大数量 -->

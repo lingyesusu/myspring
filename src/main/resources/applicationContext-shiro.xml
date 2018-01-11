@@ -17,6 +17,7 @@
 		<property name="filterChainDefinitions">
 		<value>
 				/login = anon
+				/test/** = anon
 				/inLogin = anon
 				/logout = anon
 				/role/** = roles[admin]
